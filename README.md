@@ -1,6 +1,17 @@
 
+# bleakheart-lsl - steams Polar H10 sensor data via LSL
 
-# Install LabRecorder
+what is streamed: 
+* Electrocardiogram (ECG in micro-Volts (µV)
+* accelerometer data (ACC in milli-g)
+* heart rate (HR in beats-per-minute (bpm))
+* RR interval (in milli-seconds (ms))
+
+
+The streams can be recorded using LabRecorder.
+There is a script that can load recorded files and visualize the data ( visualize.py ).
+
+## Install LabRecorder
 
 To record LSL streams, use the LabRecorder Tool: 
 
