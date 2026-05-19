@@ -15,19 +15,18 @@ There is a script that can load recorded files and visualize the data ( visualiz
 
 To record LSL streams, use the LabRecorder Tool. 
 
+
+
 ### Linux Mint 22.3
 
-Dependency: 
+LabRecorder needs a system-wide installed liblsl and depends on QT.
 
-```bash
-sudo apt install liblsl
-```
+For Linux Mint 22.3, install LabRecorder 1.16, because the newer releases depend on a QT version not yet available in the Linux Mint repository.
 
-this installs liblsl version 1.16.2-noble. 
+First install liblsl: https://github.com/sccn/liblsl/releases/download/v1.16.2/liblsl-1.16.2-noble_amd64.deb
 
-Now install the matching LabRecorder Version 1.16:
+Then install LabRecorder v 1.16.5: https://github.com/labstreaminglayer/App-LabRecorder/releases/tag/v1.16.5
 
-https://github.com/labstreaminglayer/App-LabRecorder/releases/tag/v1.16.5
 
 
 ## Tips & Tricks
