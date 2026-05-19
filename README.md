@@ -30,12 +30,11 @@ Now install the matching LabRecorder Version 1.16:
 https://github.com/labstreaminglayer/App-LabRecorder/releases/tag/v1.16.5
 
 
-
 ## Tips & Tricks
 
 * under Linux Mint, *disable the firewall* to see the available streams, or create appropriate firewall rules.
 * polarh10 python script: wait a bit until the accelerometer- and ecg data appears. heartrate is available first.
 * bluetooth: disable and re-enable bluetooth if the polarh10 sensor is not found by the script.
-* if bluetooth does not work, restart. the bluetooth stack is a bit unstable. 
+* if bluetooth does not work, reboot Linux (Mint). The bluetooth stack is a bit unstable. 
 
 
