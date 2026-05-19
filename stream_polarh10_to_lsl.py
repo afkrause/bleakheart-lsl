@@ -32,44 +32,41 @@ OUTLET = []
 HR_SAMPLING_FREQ = 1 # TODO: what is the sampling rate???
                 
 def create_ecg_lsl_outlet(stream_name):
-    info = StreamInfo(stream_name, 'ECG', 1, ECG_SAMPLING_FREQ, 'float32')#, 'myuid2424')
-    '''
+    info = StreamInfo(stream_name, 'ECG', 1, ECG_SAMPLING_FREQ, 'float32', 'myuid2424')
+    #'''
     info.desc().append_child_value("manufacturer", "Polar")
     channels = info.desc().append_child("channels")
     channels.append_child("channel")\
         .append_child_value("name", 'ECG')\
         .append_child_value("unit", "microvolts")\
         .append_child_value("type", "ECG")
-    '''
+    #'''
     return StreamOutlet(info, chunk_size = ECG_CHUNKSIZE)
 
 def create_acc_lsl_outlet(stream_name):
-    info = StreamInfo(stream_name, 'ACC', 3, ACC_SAMPLING_FREQ, 'float32')#, 'myuid2425')
-    '''
+    info = StreamInfo(stream_name, 'ACC', 3, ACC_SAMPLING_FREQ, 'float32', 'myuid2425')
+    #'''
     info.desc().append_child_value("manufacturer", "Polar")
     channels = info.desc().append_child("channels")    
     channels.append_child("channel")\
         .append_child_value("name", 'ACC')\
         .append_child_value("unit", "milli-g")\
         .append_child_value("type", "ACC")
-    '''
+    #'''
     return StreamOutlet(info, chunk_size = ACC_CHUNKSIZE)
 
 
 def create_heartrate_lsl_outlet(stream_name):
-    info = StreamInfo(stream_name, 'HR', 2, HR_SAMPLING_FREQ, 'float32')#, 'myuid2426')
-    '''
+    info = StreamInfo(stream_name, 'HR', 2, HR_SAMPLING_FREQ, 'float32', 'myuid2426')
+    #'''
     info.desc().append_child_value("manufacturer", "Polar")
     channels = info.desc().append_child("channels")
     channels.append_child("channel")\
         .append_child_value("name", "HR")\
         .append_child_value("unit", "bpm")\
         .append_child_value("type", "HR")
-    '''
+    #'''
     return StreamOutlet(info, chunk_size = 1)
-
-
-
 
 # change these two parameters and see what happens.
 # INSTANT_RATE is unsupported when UNPACK is False
