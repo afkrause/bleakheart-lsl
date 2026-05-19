@@ -19,9 +19,10 @@ To record LSL streams, use the LabRecorder Tool.
 
 Dependency: 
 
-´´´
+```bash
 sudo apt install liblsl
-´´´
+```
+
 this installs liblsl version 1.16.2-noble. 
 
 Now install the matching LabRecorder Version 1.16:
