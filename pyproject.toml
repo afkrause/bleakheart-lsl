@@ -1,0 +1,13 @@
+[project]
+name = "bleakheart-lsl"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "bleakheart>=0.2.0",
+    "matplotlib>=3.10.9",
+    "numpy>=2.4.4",
+    "pylsl==1.16",
+    "pyxdf>=1.17.4",
+]
