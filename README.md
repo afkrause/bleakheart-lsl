@@ -13,19 +13,22 @@ There is a script that can load recorded files and visualize the data ( visualiz
 
 ## Install LabRecorder
 
-To record LSL streams, use the LabRecorder Tool: 
+To record LSL streams, use the LabRecorder Tool. 
 
-### Linux Ubuntu
+### Linux Mint 22.3
 
-The Ubuntu releases do not typically ship with their dependencies, so you must download and install those:
-* Download, extract, and install the latest [liblsl-{version}-{target}_amd64.deb from its release page](https://github.com/sccn/liblsl/releases)
-    * We hope to make this available via a package manager soon.
-      * Quick ref Ubuntu 24.04: `curl -L https://github.com/sccn/liblsl/releases/download/v1.17.4/liblsl-1.17.4-noble_amd64.deb -o liblsl.deb`
-      * Quick ref Ubuntu 22.04: `curl -L https://github.com/sccn/liblsl/releases/download/v1.17.4/liblsl-1.17.4-jammy_amd64.deb -o liblsl.deb`
-    * You can install liblsl directly by double-clicking on the deb, or with `sudo dpkg -i {filename}.deb` or `sudo apt install {filename}.deb`
-* See the bottom of the [lsl build env docs](https://labstreaminglayer.readthedocs.io/dev/build_env.html).
-    * For most cases, this will amount to installing Qt and its dependencies:
-      * Ubuntu >= 22.04: `sudo apt-get install qt6-base-dev freeglut3-dev`
+Dependency: 
+
+´´´
+sudo apt install liblsl
+´´´
+this installs liblsl version 1.16.2-noble. 
+
+Now install the matching LabRecorder Version 1.16:
+
+https://github.com/labstreaminglayer/App-LabRecorder/releases/tag/v1.16.5
+
+
 
 ## Tips & Tricks
 
