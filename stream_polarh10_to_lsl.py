@@ -32,7 +32,7 @@ OUTLET = []
 HR_SAMPLING_FREQ = 1 # TODO: what is the sampling rate???
                 
 def create_ecg_lsl_outlet(stream_name):
-    info = StreamInfo(stream_name, 'ECG', 1, ECG_SAMPLING_FREQ, 'float32', 'myuid2424')
+    info = StreamInfo(stream_name, 'ECG', 1, ECG_SAMPLING_FREQ, 'int32', 'myuid2424')
     #'''
     info.desc().append_child_value("manufacturer", "Polar")
     channels = info.desc().append_child("channels")
@@ -44,7 +44,7 @@ def create_ecg_lsl_outlet(stream_name):
     return StreamOutlet(info, chunk_size = ECG_CHUNKSIZE)
 
 def create_acc_lsl_outlet(stream_name):
-    info = StreamInfo(stream_name, 'ACC', 3, ACC_SAMPLING_FREQ, 'float32', 'myuid2425')
+    info = StreamInfo(stream_name, 'ACC', 3, ACC_SAMPLING_FREQ, 'int32', 'myuid2425')
     #'''
     info.desc().append_child_value("manufacturer", "Polar")
     channels = info.desc().append_child("channels")    
@@ -57,7 +57,7 @@ def create_acc_lsl_outlet(stream_name):
 
 
 def create_heartrate_lsl_outlet(stream_name):
-    info = StreamInfo(stream_name, 'HR', 2, HR_SAMPLING_FREQ, 'float32', 'myuid2426')
+    info = StreamInfo(stream_name, 'HR', 2, HR_SAMPLING_FREQ, 'int32', 'myuid2426')
     #'''
     info.desc().append_child_value("manufacturer", "Polar")
     channels = info.desc().append_child("channels")
@@ -65,6 +65,10 @@ def create_heartrate_lsl_outlet(stream_name):
         .append_child_value("name", "HR")\
         .append_child_value("unit", "bpm")\
         .append_child_value("type", "HR")
+    channels.append_child("channel")\
+        .append_child_value("name", "RR")\
+        .append_child_value("unit", "ms")\
+        .append_child_value("type", "RR")
     #'''
     return StreamOutlet(info, chunk_size = 1)
 
@@ -120,7 +124,7 @@ def heartrate_callback(data):
     is received """
     stream_type = data[0]
     timestamp = data[1] # the timestamp refers to the last sample!
-    samples = np.array(data[2])    
+    samples = np.array(data[2], dtype=np.int32)
     if stream_type == 'HR':
         print('(HR, RR-interval)=', samples)
         lsl_hr_outlet.push_sample(samples)
@@ -139,7 +143,7 @@ def callback(data):
     #print(np.mean(np.array(data[0])))
     stream_type = data[0]
     timestamp = data[1] # the timestamp refers to the last sample!
-    samples = np.array(data[2], dtype=np.float32)
+    samples = np.array(data[2], dtype=np.int32)
     # print(len(samples))
     if stream_type == 'ACC':
         print("acc samples, mean accel (x,y,z) = ", len(samples), np.mean(samples, axis = 0))
