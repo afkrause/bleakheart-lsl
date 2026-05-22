@@ -9,7 +9,9 @@ what is streamed:
 
 
 The streams can be recorded using LabRecorder.
-There is a script that can load recorded files and visualize the data ( visualize.py ).
+There is a script that can load recorded files and visualize the data ( visualize.py ):
+
+![Visualization](visualization.png)
 
 ## Install LabRecorder
 
@@ -34,3 +36,8 @@ For Linux Mint 22.3, install LabRecorder 1.16, because the newer releases depend
 * if bluetooth does not work, reboot Linux (Mint). The bluetooth stack is a bit unstable. 
 
 
+## TODOS
+
+visualize.py:
+* the matplotlib plot function downsamples the ECG curve. zooming in shows less data than actually is available
+* add slider to zoom vertically?

@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider
 import pyxdf
 
-fname = "sample_recording/sub-P001_ses-S001_task-Default_run-001_polarh10.xdf"
+
 fname = 'sample_recording/sub-P001_ses-S001_task-Default_run-001_ecg.xdf'
 
 data, header = pyxdf.load_xdf(fname)
