@@ -44,10 +44,15 @@ for stream in data:
     else:
         raise RuntimeError("Unknown stream format")
     '''
-
-ecg_t = ecg_t - ecg_t[0]
-
+t0 = min([min(ecg_t), min(acc_t), min(hr_t)])
+ecg_t = ecg_t - t0
+acc_t = acc_t - t0
+hr_t = hr_t - t0
+t_max = max([max(ecg_t), max(acc_t), max(hr_t)])
 plt.show()
+
+min_acc=np.min(np.min(acc))
+max_acc=np.max(np.max(acc))
 
 
 
@@ -64,29 +69,60 @@ plt.subplots_adjust(bottom=0.25)
 #s = np.sin(2*np.pi*t)
 
 # plot the x and y using plot function
-l = plt.plot(ecg_t, ecg)
+# https://www.statology.org/matplotlib-two-y-axes/
+plt.close('all')
 
-# Choose the Slider color
+# create a figure with subplots and a specified figure size with fixed dpi
+fig, ax = plt.subplots(nrows=2, figsize=(19, 9.5), dpi=90)
+ax[0].plot(ecg_t, ecg, color='blue', label='ECG')
+ax[0].set_ylabel('electrocardiogram [micro-Volt]', color='blue')#, fontsize=14)
+ax[0].set_xticklabels([]) # remove x-axis label and ticks
+
+# create second y-axis
+ax2 = ax[0].twinx()
+l2 = ax2.plot(hr_t, hr[:,0], color='green', label='HR')
+l2 = ax2.plot(hr_t, 60*1000/hr[:,1], color='grey', label='instant HR from RR')
+ax2.set_ylabel('heart rate [bpm]', color='green')#, fontsize=14)
+ax2.legend()
+
+ax[1].plot(acc_t, acc)
+ax[1].set_xlabel('time [s]')#, fontsize=14)
+ax[1].set_ylabel('acceleration [micro-g]')#, fontsize=14)
+
+# adjust the margins to save space
+# add enough margin to the bottom to allow for sliders
+fig.tight_layout(pad=0.0)
+fig.subplots_adjust(bottom=0.125, left=0.05, right=0.96, top=0.99)
+
 slider_color = 'White'
-
 # Set the axis and slider position in the plot
-axis_position = plt.axes([0.2, 0.1, 0.65, 0.03], facecolor = slider_color)
-slider_position = Slider(axis_position, 'time', 0.1, 90.0)
+axis_position = plt.axes([0.05, 0.05, 0.9, 0.03], facecolor = slider_color)
+slider_position = Slider(axis_position, 'time', 0.0, t_max)
 
-axis_zoom = plt.axes([0.2, 0.05, 0.65, 0.03], facecolor = slider_color)
-slider_zoom = Slider(axis_zoom, 'zoom', 100, 1500)
+axis_t_range = plt.axes([0.05, 0.02, 0.45, 0.03], facecolor = slider_color)
+slider_t_range = Slider(axis_t_range, 'time-range', 1, 0.5*t_max)
 
-# update() function to change the graph when the
-# slider is in use
+#axis_zoom = plt.axis([0.72, 0.05, 0.25, 0.03], facecolor = slider_color)
+#slider_scale_y = Slider(axis_zoom, 'scale y', 1, 4)
+
+# update() function to change the graph when the slider is changed
 def update(val):
+    global ax
     pos = slider_position.val
-    zoom = slider_zoom.val
-    Axis.axis([pos, pos+10, -zoom, zoom])
+    t_range = slider_t_range.val    
+    scale_y = 1
+    #scale_y = slider_scale_y.val
+    t1 = pos - t_range
+    t2 = pos + t_range
+    #if t1<0: t1=0
+    ax[0].axis([t1, t2, min(ecg)/scale_y, max(ecg)/scale_y])
+    ax[1].axis([t1, t2, min_acc, max_acc])
     Plot.canvas.draw_idle()
 
 # update function called using on_changed() function
 slider_position.on_changed(update)
-slider_zoom.on_changed(update)
+slider_t_range.on_changed(update)
+#slider_scale_y.on_changed(update)
 
 # Display the plot
 plt.show()
